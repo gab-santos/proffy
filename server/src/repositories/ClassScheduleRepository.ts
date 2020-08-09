@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Transaction } from "knex";
 import connection from "../database/connection";
 import convertHourToMinutes from "../utils/convertHourToMinutes";
