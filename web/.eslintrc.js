@@ -42,6 +42,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
     "import/extensions": [0, "never"],
+    "react/prop-types": 0,
     //
     "import-helpers/order-imports": [
       "warn",
