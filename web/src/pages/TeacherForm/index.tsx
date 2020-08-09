@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useHistory } from "react-router-dom";
 
 import warningIcon from "../../assets/images/icons/warning.svg";
 import Input from "../../components/Input";
@@ -6,6 +7,14 @@ import PageHeader from "../../components/PageHeader";
 import Select from "../../components/Select";
 import Textarea from "../../components/Textarea";
 import "./styles.css";
+import api from "../../services/api";
+
+type FieldChangeTypes =
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement;
+
+type ScheduleChangeTypes = HTMLSelectElement | HTMLInputElement;
 
 const TeacherForm: React.FC = () => {
   const subjectOptions = [
@@ -32,12 +41,69 @@ const TeacherForm: React.FC = () => {
     { value: "6", label: "Sábado" },
   ];
 
+  const history = useHistory();
+  const [formData, setFormData] = useState({
+    name: "",
+    avatar: "",
+    whatsapp: "",
+    bio: "",
+    subject: "",
+    cost: "",
+  });
+
   const [scheduleItems, setScheduleItems] = useState([
-    { week_day: 0, from: "", to: "" },
+    { week_day: "", from: "", to: "" },
   ]);
 
   function addNewScheduleItem() {
-    setScheduleItems([...scheduleItems, { week_day: 0, from: "", to: "" }]);
+    setScheduleItems([...scheduleItems, { week_day: "", from: "", to: "" }]);
+  }
+
+  function handleFieldChange(event: ChangeEvent<FieldChangeTypes>) {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
+
+  function handleScheduleChange(
+    event: ChangeEvent<ScheduleChangeTypes>,
+    position: number
+  ) {
+    const { name: field, value } = event.target;
+    const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
+      if (index === position) return { ...scheduleItem, [field]: value };
+      return scheduleItem;
+    });
+
+    setScheduleItems(updatedScheduleItems);
+  }
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+
+    const { name, avatar, whatsapp, bio, subject, cost } = formData;
+
+    try {
+      const response = await api.post("/classes", {
+        name,
+        avatar,
+        whatsapp,
+        bio,
+        subject,
+        cost: Number(cost),
+        schedule: scheduleItems,
+      });
+
+      if (response.status === 201) {
+        alert("Cadastro realizado com sucesso!");
+        history.push("/");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro no cadastro!");
+    }
   }
 
   return (
@@ -48,52 +114,99 @@ const TeacherForm: React.FC = () => {
       />
 
       <main>
-        <fieldset>
-          <legend>Seus dados</legend>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <legend>Seus dados</legend>
 
-          <Input name="name" label="Nome completo" />
-          <Input name="avatar" label="Avatar" />
-          <Input name="whatsapp" label="Whatsapp" />
-          <Textarea name="bio" label="Biografia" />
-        </fieldset>
+            <Input
+              name="name"
+              label="Nome completo"
+              value={formData.name}
+              onChange={handleFieldChange}
+            />
+            <Input
+              name="avatar"
+              label="Avatar"
+              value={formData.avatar}
+              onChange={handleFieldChange}
+            />
+            <Input
+              name="whatsapp"
+              label="Whatsapp"
+              value={formData.whatsapp}
+              onChange={handleFieldChange}
+            />
+            <Textarea
+              name="bio"
+              label="Biografia"
+              value={formData.bio}
+              onChange={handleFieldChange}
+            />
+          </fieldset>
 
-        <fieldset>
-          <legend>Sobre a aula</legend>
+          <fieldset>
+            <legend>Sobre a aula</legend>
 
-          <Select name="subject" label="Máteria" options={subjectOptions} />
-          <Input name="cost" label="Custo da sua hora por aula" />
-        </fieldset>
+            <Select
+              name="subject"
+              label="Máteria"
+              options={subjectOptions}
+              value={formData.subject}
+              onChange={handleFieldChange}
+            />
+            <Input
+              name="cost"
+              label="Custo da sua hora por aula"
+              value={formData.cost}
+              onChange={handleFieldChange}
+            />
+          </fieldset>
 
-        <fieldset>
-          <legend>
-            Horários disponíveis
-            <button type="button" onClick={addNewScheduleItem}>
-              + Novo horário
-            </button>
-          </legend>
+          <fieldset>
+            <legend>
+              Horários disponíveis
+              <button type="button" onClick={addNewScheduleItem}>
+                + Novo horário
+              </button>
+            </legend>
 
-          {scheduleItems.map((scheduleItem) => (
-            <div key={scheduleItem.week_day} className="schedule-item">
-              <Select
-                name="week_day"
-                label="Dia da semana"
-                options={weekDayOptions}
-              />
-              <Input name="from" label="Das" type="time" />
-              <Input name="to" label="Até" type="time" />
-            </div>
-          ))}
-        </fieldset>
+            {scheduleItems.map((scheduleItem, index) => (
+              <div key={scheduleItem.week_day} className="schedule-item">
+                <Select
+                  name="week_day"
+                  label="Dia da semana"
+                  options={weekDayOptions}
+                  value={scheduleItem.week_day}
+                  onChange={(event) => handleScheduleChange(event, index)}
+                />
+                <Input
+                  name="from"
+                  label="Das"
+                  type="time"
+                  value={scheduleItem.from}
+                  onChange={(event) => handleScheduleChange(event, index)}
+                />
+                <Input
+                  name="to"
+                  label="Até"
+                  type="time"
+                  value={scheduleItem.to}
+                  onChange={(event) => handleScheduleChange(event, index)}
+                />
+              </div>
+            ))}
+          </fieldset>
 
-        <footer>
-          <p>
-            <img src={warningIcon} alt="Aviso" />
-            Importante!
-            <br />
-            Preencha todos os dados.
-          </p>
-          <button type="button">Salvar cadastro</button>
-        </footer>
+          <footer>
+            <p>
+              <img src={warningIcon} alt="Aviso" />
+              Importante!
+              <br />
+              Preencha todos os dados.
+            </p>
+            <button type="submit">Salvar cadastro</button>
+          </footer>
+        </form>
       </main>
     </div>
   );
