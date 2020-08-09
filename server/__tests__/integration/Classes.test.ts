@@ -1,8 +1,12 @@
 import request from "supertest";
 import faker from "faker/locale/pt_BR";
-import app from "../../src/app";
 
+import app from "../../src/app";
 import prepareDb from "../prepareDb";
+
+import UsersRepository from "../../src/repositories/UsersRepository";
+import ClassesRepository from "../../src/repositories/ClassesRepository";
+import ClassScheduleRepository from "../../src/repositories/ClassScheduleRepository";
 
 const fakeUser = {
   name: faker.name.findName(),
@@ -13,7 +17,7 @@ const fakeUser = {
 
 const fakeClass = {
   subject: faker.lorem.word(),
-  cost: faker.commerce.price(80),
+  cost: Number(faker.commerce.price(80)),
 };
 
 const fakeSchedule = {
@@ -29,11 +33,34 @@ describe("Classes - Integration", () => {
 
   afterAll(async () => await prepareDb.afterAll());
 
-  it("should be abe to create an user", async () => {
+  it("should be able to create an class", async () => {
     const response = await request(app)
       .post("/classes")
       .send({ ...fakeUser, ...fakeClass, ...fakeSchedule });
 
     expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("id");
+  });
+
+  it("should be able to list user filtered by week_day, subject and time", async () => {
+    const insertedUserId = await UsersRepository.create(fakeUser);
+    const insertedClassId = await ClassesRepository.create(
+      fakeClass,
+      insertedUserId
+    );
+    await ClassScheduleRepository.create(
+      fakeSchedule.schedule,
+      insertedClassId
+    );
+
+    const response = await request(app).get("/classes").query({
+      subject: fakeClass.subject,
+      week_day: fakeSchedule.schedule[0].week_day,
+      time: fakeSchedule.schedule[0].from,
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(1);
+    expect(response.body[0].id).toEqual(insertedUserId);
   });
 });

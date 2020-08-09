@@ -9,5 +9,6 @@ routes.get("/hw", (req, res) =>
 );
 
 routes.post("/classes", ClassesController.create);
+routes.get("/classes", ClassesController.index);
 
 export default routes;
