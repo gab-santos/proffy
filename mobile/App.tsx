@@ -12,7 +12,7 @@ import {
 import { AppLoading } from "expo";
 import { StatusBar } from "expo-status-bar";
 
-import Landing from "./src/pages/Landing";
+import AppStack from "./src/routes/AppStack";
 
 const App: React.FC = () => {
   const [fontLoaded] = useFonts({
@@ -26,7 +26,8 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Landing />
+      <AppStack />
+      {/* eslint-disable-next-line react/style-prop-object */}
       <StatusBar style="light" />
     </>
   );
