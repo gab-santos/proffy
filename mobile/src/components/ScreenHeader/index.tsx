@@ -10,9 +10,14 @@ import styles from "./styles";
 
 interface ScreenHeaderProps {
   title: string;
+  headerRight?: React.ReactNode;
 }
 
-const ScreenHeader: React.FC<ScreenHeaderProps> = ({ title }) => {
+const ScreenHeader: React.FC<ScreenHeaderProps> = ({
+  title,
+  children,
+  headerRight,
+}) => {
   const { navigate } = useNavigation();
 
   function handleGoBack() {
@@ -27,7 +32,14 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({ title }) => {
         </Button>
         <Image source={logoImage} resizeMode="contain" />
       </View>
-      <Text style={styles.title}>{title}</Text>
+
+      <View style={styles.header}>
+        <Text style={styles.title}>{title}</Text>
+
+        {headerRight}
+      </View>
+
+      {children}
     </View>
   );
 };
