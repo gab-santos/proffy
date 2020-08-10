@@ -54,8 +54,12 @@ const StutyTabs: React.FC = () => {
         component={TeacherList}
         options={{
           tabBarLabel: "Proffys",
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="ios-easel" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name="ios-easel"
+              size={size}
+              color={focused ? "#8257e5" : color}
+            />
           ),
         }}
       />
@@ -64,8 +68,12 @@ const StutyTabs: React.FC = () => {
         component={Favorites}
         options={{
           tabBarLabel: "Favoritos",
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="ios-heart" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name="ios-heart"
+              size={size}
+              color={focused ? "#8257e5" : color}
+            />
           ),
         }}
       />
