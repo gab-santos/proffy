@@ -44,6 +44,7 @@ module.exports = {
     "import/extensions": [0, "never"],
     "react/jsx-one-expression-per-line": "off",
     camelcase: "off",
+    "react/prop-types": "off",
     //
     "import-helpers/order-imports": [
       "warn",
