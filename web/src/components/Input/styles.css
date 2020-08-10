@@ -2,7 +2,8 @@
   position: relative;
 }
 
-.input-block + .input-block {
+.input-block + .input-block,
+.select-block + .input-block {
   margin-top: 1.4rem;
 }
 

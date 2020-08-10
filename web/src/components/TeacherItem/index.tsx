@@ -2,38 +2,55 @@ import React from "react";
 
 import whatsappIcon from "../../assets/images/icons/whatsapp.svg";
 import "./styles.css";
+import api from "../../services/api";
 
-const TeacherItem: React.FC = () => {
-  const url =
-    "https://media1.popsugar-assets.com/files/thumbor/BpzkP-JXS-ewX_9IaesNC5CUWTc/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2017/08/24/833/n/1922398/3bb6df53599f224fe59635.58951946_edit_img_image_43931680_1503600332/i/Jared-Padalecki-Shirtless-Pictures.jpg";
+export interface Teacher {
+  id: number;
+  name: string;
+  avatar: string;
+  whatsapp: string;
+  bio: string;
+  subject: string;
+  cost: number;
+}
+
+interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  async function createNewConnection() {
+    await api.post("/connections", {
+      user_id: teacher.id,
+    });
+  }
+
   return (
     <article className="teacher-item">
       <header>
-        <img src={url} alt="Sam Winchester" />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Sam Winchester</strong>
-          <span>Caça</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
 
-      <p>
-        Salvar pessoas, caçar coisas o negócio da família.
-        <br />
-        <br />
-        Sou o receptáculo oficial de Lucifer, já perdi minha alma e recentemente
-        me tornei um dos inimigos pessoais de Deus, que eu chamo de Chuck (já
-        somos íntimos a esse ponto).
-      </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/hora
-          <strong>R$ 200,00</strong>
+          <strong>R$ {teacher.cost} </strong>
         </p>
-        <button type="button">
+        <a
+          href={`https://wa.me/${teacher.whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={createNewConnection}
+        >
           <img src={whatsappIcon} alt="Whatsapp" />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   );

@@ -41,6 +41,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
+    "react/jsx-one-expression-per-line": "off",
     "import/extensions": [0, "never"],
     "react/prop-types": 0,
     //
