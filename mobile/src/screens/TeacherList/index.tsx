@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, Alert } from "react-native";
 import {
   ScrollView,
@@ -16,31 +16,31 @@ import TeacherItem, { Teacher } from "../../components/TeacherItem";
 import api from "../../services/api";
 import styles from "./styles";
 
+const subjectItems = [
+  { value: "Artes", label: "Artes" },
+  { value: "Biologia", label: "Biologia" },
+  { value: "Ciências", label: "Ciências" },
+  { value: "Educação Física", label: "Educação Física" },
+  { value: "Física", label: "Física" },
+  { value: "Geografia", label: "Geografia" },
+  { value: "História", label: "História" },
+  { value: "Matemática", label: "Matemática" },
+  { value: "Português", label: "Português" },
+  { value: "Química", label: "Química" },
+  { value: "Inglês", label: "Inglês" },
+] as Item[];
+
+const weekDayItems = [
+  { value: "0", label: "Domingo" },
+  { value: "1", label: "Segunda-feira" },
+  { value: "2", label: "Terça-feira" },
+  { value: "3", label: "Quarta-feira" },
+  { value: "4", label: "Quinta-feira" },
+  { value: "5", label: "Sexta-feira" },
+  { value: "6", label: "Sábado" },
+] as Item[];
+
 const TeacherList: React.FC = () => {
-  const subjectItems = [
-    { value: "Artes", label: "Artes" },
-    { value: "Biologia", label: "Biologia" },
-    { value: "Ciências", label: "Ciências" },
-    { value: "Educação Física", label: "Educação Física" },
-    { value: "Física", label: "Física" },
-    { value: "Geografia", label: "Geografia" },
-    { value: "História", label: "História" },
-    { value: "Matemática", label: "Matemática" },
-    { value: "Português", label: "Português" },
-    { value: "Química", label: "Química" },
-    { value: "Inglês", label: "Inglês" },
-  ] as Item[];
-
-  const weekDayItems = [
-    { value: "0", label: "Domingo" },
-    { value: "1", label: "Segunda-feira" },
-    { value: "2", label: "Terça-feira" },
-    { value: "3", label: "Quarta-feira" },
-    { value: "4", label: "Quinta-feira" },
-    { value: "5", label: "Sexta-feira" },
-    { value: "6", label: "Sábado" },
-  ] as Item[];
-
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [filters, setFilters] = useState({
