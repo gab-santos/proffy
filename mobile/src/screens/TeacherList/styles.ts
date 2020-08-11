@@ -29,9 +29,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     justifyContent: "center",
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 25,
     marginTop: 4,
     marginBottom: 16,
+  },
+
+  inputIcon: {
+    height: 60,
+    paddingHorizontal: 8,
+    justifyContent: "center",
+    marginLeft: 16,
   },
 
   inputGroup: {
@@ -41,6 +49,10 @@ const styles = StyleSheet.create({
 
   inputBlock: {
     width: "48%",
+  },
+
+  timeButtonPlaceholder: {
+    color: "#c1bccc",
   },
 
   submitButton: {

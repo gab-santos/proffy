@@ -7,32 +7,38 @@ import unfavoriteIcon from "../../assets/images/icons/unfavorite.png";
 import whatsappIcon from "../../assets/images/icons/whatsapp.png";
 import styles from "./styles";
 
-const TeacherItem: React.FC = () => {
-  const uri =
-    "https://media1.popsugar-assets.com/files/thumbor/BpzkP-JXS-ewX_9IaesNC5CUWTc/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2017/08/24/833/n/1922398/3bb6df53599f224fe59635.58951946_edit_img_image_43931680_1503600332/i/Jared-Padalecki-Shirtless-Pictures.jpg";
+export interface Teacher {
+  id: number;
+  name: string;
+  avatar: string;
+  whatsapp: string;
+  bio: string;
+  subject: string;
+  cost: number;
+}
+
+interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Image source={{ uri }} style={styles.avatar} />
+        <Image source={{ uri: teacher.avatar }} style={styles.avatar} />
 
         <View style={styles.profileInfo}>
-          <Text style={styles.name}>Jared Padalecki</Text>
-          <Text style={styles.subject}>Caça</Text>
+          <Text style={styles.name}>{teacher.name}</Text>
+          <Text style={styles.subject}>{teacher.subject}</Text>
         </View>
       </View>
 
-      <Text style={styles.bio}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-        {"\n"}
-        {"\n"}
-        Esse tempore voluptas iusto quasi doloremque eum est dolorum alias
-        temporibus, repellat numquam sequi mollitia ut corporis, eius dolore!
-        Doloremque, cupiditate laborum.
-      </Text>
+      <Text style={styles.bio}>{teacher.bio}</Text>
 
       <View style={styles.footer}>
         <Text style={styles.price}>
-          Preço/hora {"   "} <Text style={styles.priceValue}>R$ 200</Text>
+          Preço/hora {"   "}
+          <Text style={styles.priceValue}>R$ {teacher.cost}</Text>
         </Text>
 
         <View style={styles.buttonsContainer}>
