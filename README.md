@@ -11,7 +11,7 @@ Projeto desenvolvido na [Next Level Week #02](https://nextlevelweek.com/episodio
 
 #### O PROJETO AINDA NÃO FOI FINALIZADO. 
 
-### APROVEITE E ACESSE O SITE DA [NEXT LEVEL WEEK](https://nextlevelweek.com/episodios/omnistack/1/edicao/2) E ASSISTA AS AULAS GRATUITAMENTE, ELAS ESTÃO DISPONÍVEIS ATÉ 09/08/2020.
+### APROVEITE E ACESSE O SITE DA [NEXT LEVEL WEEK](https://nextlevelweek.com/episodios/omnistack/1/edicao/2) E ASSISTA AS AULAS GRATUITAMENTE, ELAS ESTÃO DISPONÍVEIS ATÉ 14/08/2020.
 
 
 <!-- ### BACK-END
