@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Alert } from "react-native";
 import {
   ScrollView,
@@ -8,6 +8,7 @@ import {
 import Select, { Item } from "react-native-picker-select";
 
 import { Feather as Icon } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-community/async-storage";
 import TimePicker, { Event } from "@react-native-community/datetimepicker";
 
 import ScreenHeader from "../../components/ScreenHeader";
@@ -48,6 +49,19 @@ const TeacherList: React.FC = () => {
     time: "",
   });
   const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  async function loadFavorites() {
+    const response = await AsyncStorage.getItem("@proffy/favorite");
+    if (response) {
+      const favoritedTeachers = JSON.parse(response);
+      const favoritedTeachersIds = favoritedTeachers.map(
+        (teacher: Teacher) => teacher.id
+      );
+
+      setFavorites(favoritedTeachersIds);
+    }
+  }
 
   function hableToggleFiltersVisible() {
     setIsFiltersVisible(!isFiltersVisible);
@@ -68,6 +82,7 @@ const TeacherList: React.FC = () => {
 
   async function handleSubmit() {
     try {
+      loadFavorites();
       const { subject, week_day, time } = filters;
 
       if (!subject || !week_day || !time)
@@ -96,7 +111,7 @@ const TeacherList: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Proffs disponíveis" headerRight={<HeaderRight />}>
+      <ScreenHeader title="Proffys disponíveis" headerRight={<HeaderRight />}>
         {isFiltersVisible && (
           <View style={styles.searchForm}>
             <Text style={styles.label}>Matéria</Text>
@@ -185,7 +200,11 @@ const TeacherList: React.FC = () => {
         contentContainerStyle={styles.teacherListContainer}
       >
         {teachers.map((teacher) => (
-          <TeacherItem key={teacher.id} teacher={teacher} />
+          <TeacherItem
+            key={teacher.id}
+            teacher={teacher}
+            favorited={favorites.includes(teacher.id)}
+          />
         ))}
       </ScrollView>
     </View>

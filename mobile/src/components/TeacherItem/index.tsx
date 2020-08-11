@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, Text, Linking } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+
+import AsyncStorage from "@react-native-community/async-storage";
 
 import favoriteIcon from "../../assets/images/icons/heart-outline.png";
 import unfavoriteIcon from "../../assets/images/icons/unfavorite.png";
@@ -19,11 +21,36 @@ export interface Teacher {
 
 interface TeacherItemProps {
   teacher: Teacher;
+  favorited: boolean;
 }
 
-const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
+  const [isFavorited, setIsFavorite] = useState(favorited);
+
   function handleLinkToWhatsapp() {
     Linking.openURL(`whatsapp://send?phone=+55${teacher.whatsapp}`);
+  }
+
+  async function handleToggleFavorite() {
+    let favoritesArray = [];
+    const favorites = await AsyncStorage.getItem("@proffy/favorite");
+    if (favorites) favoritesArray = JSON.parse(favorites);
+
+    if (isFavorited) {
+      const favoriteIndex = favoritesArray.findIndex(
+        (teacherItem: Teacher) => teacherItem.id === teacher.id
+      );
+
+      favoritesArray.splice(favoriteIndex, 1);
+      setIsFavorite(false);
+    } else {
+      favoritesArray.push(teacher);
+      setIsFavorite(true);
+    }
+    await AsyncStorage.setItem(
+      "@proffy/favorite",
+      JSON.stringify(favoritesArray)
+    );
   }
 
   return (
@@ -46,9 +73,15 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
         </Text>
 
         <View style={styles.buttonsContainer}>
-          <RectButton style={[styles.favoriteButton, styles.favorited]}>
-            {/* <Image source={favoriteIcon} /> */}
-            <Image source={unfavoriteIcon} />
+          <RectButton
+            onPress={handleToggleFavorite}
+            style={[styles.favoriteButton, isFavorited && styles.favorited]}
+          >
+            {isFavorited ? (
+              <Image source={unfavoriteIcon} />
+            ) : (
+              <Image source={favoriteIcon} />
+            )}
           </RectButton>
 
           <RectButton
