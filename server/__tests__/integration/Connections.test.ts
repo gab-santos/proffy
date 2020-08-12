@@ -49,7 +49,7 @@ describe("Classes - Integration", () => {
       user_id: insertedUserId,
     });
 
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(204);
   });
 
   it("should be able to list the connections", async () => {

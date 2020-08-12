@@ -22,7 +22,7 @@ class ConnectionsController {
     try {
       await ConnectionsRepository.create(user_id);
 
-      response.status(201).json({});
+      response.status(204).json();
       //
     } catch (err) {
       console.log(err);
