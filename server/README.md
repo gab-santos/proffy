@@ -2,8 +2,8 @@
 
 ## Sobre o projeto
 
-O back-end do projeto **Proffy** foi desenvolvido utilizando NodeJS com Typescript.
-Para criar os testes automatizados foi utilizado o Jest com a técnica de desenvolvimento TDD (Test Driven Development).
+O back-end do projeto **Proffy** foi desenvolvido utilizando **NodeJS** com **Typescript**.
+Para criar os **testes automatizados** foi utilizado o **Jest** com a técnica de desenvolvimento **TDD (Test Driven Development)**.
 
 ### Feito Com
 
@@ -59,11 +59,13 @@ A API fica localizada em `http://localhost:3333/`. Faça uma requisição atrav�
 ### Executando testes
 
 1. Acesse a pasta `server` local do projeto através de um terminal e faça a instalação das dependências (caso não tenha feito) usando o comando:
+
 ```sh
 npm install
 ```
 
 2. Execute os testes usando o comando:
+
 ```sh
 npm run test
 ```
@@ -88,17 +90,17 @@ Requisição:
 // POST /classes
 // Content-Type: application/json
 {
-	"name": "Gabriel Santos",
-	"avatar": "https://www.github.com/gab-santos.png",
-	"whatsapp": "16991223344",
-	"bio": "Me considero Desenvolvedor Junior e utilizo Javascript/Typescript com ReactJS, React Native e NodeJS. Tenho conhecimento em testes automatizados usando Jest em NodeJS e já utilizei bancos de dados SQL e NoSQL com ênfase em MongoDB. Sei utilizar conteinerização com Docker e tenho um breve conhecimento em CI/CD com o GitLab. Atualmente moro no interior de São Paulo, sou apaixonado por séries de super-heróis e livros de fantasia.",
-	"subject": "Matemática",
-	"cost": 120,
-	"schedule": [
-		{ "week_day": 1, "from": "8:00", "to": "12:00" },
-		{ "week_day": 3, "from": "10:00", "to": "13:00" },
-		{ "week_day": 4, "from": "13:00", "to": "18:00" }
-	]
+  "name": "Gabriel Santos",
+  "avatar": "https://www.github.com/gab-santos.png",
+  "whatsapp": "16991223344",
+  "bio": "Me considero Desenvolvedor Junior e utilizo Javascript/Typescript com ReactJS, React Native e NodeJS. Tenho conhecimento em testes automatizados usando Jest em NodeJS e já utilizei bancos de dados SQL e NoSQL com ênfase em MongoDB. Sei utilizar conteinerização com Docker e tenho um breve conhecimento em CI/CD com o GitLab. Atualmente moro no interior de São Paulo, sou apaixonado por séries de super-heróis e livros de fantasia.",
+  "subject": "Matemática",
+  "cost": 120,
+  "schedule": [
+    { "week_day": 1, "from": "8:00", "to": "12:00" },
+    { "week_day": 3, "from": "10:00", "to": "13:00" },
+    { "week_day": 4, "from": "13:00", "to": "18:00" }
+  ]
 }
 ```
 
@@ -116,8 +118,8 @@ Resposta:
   "cost": 120,
   "schedule": [
     { "week_day": 1, "from": "8:00", "to": "12:00" },
-    { "week_day": 3, "from": "10:00", "to": "13:00"},
-    { "week_day": 4, "from": "13:00", "to": "18:00"}
+    { "week_day": 3, "from": "10:00", "to": "13:00" },
+    { "week_day": 4, "from": "13:00", "to": "18:00" }
   ]
 }
 ```
@@ -163,7 +165,7 @@ Requisição:
 // POST /connections
 // Content-Type: application/json
 {
-	"user_id": 1
+  "user_id": 1
 }
 ```
 
