@@ -24,6 +24,6 @@ O aplicativo mobile do projeto foi desenvolvido em **React Native** com **Typesc
 
 #### NA PASTA DE CADA PARTE DO PROJETO EXISTE UM README COM MAIS INFORMAÇÕES.
 
-### APROVEITE E ACESSE O SITE DA [NEXT LEVEL WEEK #02](https://nextlevelweek.com/episodios/omnistack/1/edicao/2) E ASSISTA AS AULAS GRATUITAMENTE, ELAS ESTÃO DISPONÍVEIS ATÉ 14/08/2020.
+### O PROJETO ESTÁ SENDO ATUALIZADO PARA A VERÇÃO 2.0 . TODOS OS PASSOS QUE IREI UTILIZAR PARA AUXILIAR NA ATUALIZAÇÃO ESTÃO DESCRITOS NA [PÁGINA DO PROFFY 2.0 NO NOTION](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a895613bc6235970).
 
 <p align="center">💙</p>
