@@ -2,7 +2,7 @@ import request from "supertest";
 import faker from "faker/locale/pt_BR";
 
 import app from "../../src/app";
-import prepareDb from "../prepareDb";
+import * as prepareDb from "../prepareDb";
 
 import UsersRepository from "../../src/repositories/UsersRepository";
 import ClassesRepository from "../../src/repositories/ClassesRepository";
@@ -30,7 +30,6 @@ const fakeSchedule = {
 
 describe("Classes - Integration", () => {
   beforeEach(async () => await prepareDb.beforeEach());
-
   afterAll(async () => await prepareDb.afterAll());
 
   it("should be able to create an class", async () => {
