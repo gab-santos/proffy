@@ -4,11 +4,15 @@ const tableName = "users";
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(tableName, (table) => {
-    table.increments("id").primary();
+    table.uuid("id").primary().defaultTo("(UUID())");
     table.string("name").notNullable();
-    table.string("avatar").notNullable();
-    table.string("whatsapp").notNullable();
-    table.string("bio").notNullable();
+    table.string("last_name").notNullable();
+    table.string("email").unique().notNullable();
+    table.string("password").notNullable();
+
+    table.string("avatar").nullable();
+    table.string("bio").nullable();
+    table.string("whatsapp").nullable();
   });
 }
 
