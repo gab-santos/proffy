@@ -9,10 +9,10 @@ import {
   comparePassword,
 } from "../../src/utils/encryptAndComparePasswords";
 
-describe("User - Register", () => {
-  beforeEach(() => prepareTest.beforeEach());
-  afterAll(() => prepareTest.afterAll());
+beforeEach(() => prepareTest.beforeEach());
+afterAll(() => prepareTest.afterAll());
 
+describe("User - Register", () => {
   it("should not be able to register a new user without name, last_name, email or password", async () => {
     const response = await request(app)
       .post("/register")
@@ -54,5 +54,17 @@ describe("User - Register", () => {
     );
 
     expect(isPasswordEncrypted).toBeTruthy();
+  });
+});
+
+describe("User - Login", () => {
+  it("should not be able to login without email or password", async () => {
+    const response = await request(app).post("/authentication").send({
+      email: "",
+      password: "",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body.validation.keys).toMatchObject(["email", "password"]);
   });
 });

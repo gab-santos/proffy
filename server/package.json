@@ -6,7 +6,7 @@
   "scripts": {
     "commit": "git-cz",
     "start": "NODE_ENV=development tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "test": "jest --runInBand",
+    "test": "NODE_ENV=test jest --runInBand",
     "knex:migrate": "knex --knexfile src/config/knexfile.ts migrate:latest"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "multer": "^1.4.2",
     "sqlite3": "^5.0.0"
@@ -27,6 +28,7 @@
     "@types/express": "^4.17.7",
     "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.9",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/multer": "^1.4.4",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^3.8.0",

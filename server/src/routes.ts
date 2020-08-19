@@ -19,6 +19,7 @@ routes.post(
   UsersValidators.create(),
   UsersController.create
 );
+routes.post("/authentication", UsersValidators.show(), UsersController.show);
 
 routes.post("/classes", ClassesController.create);
 routes.get("/classes", ClassesController.index);

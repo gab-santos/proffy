@@ -1,6 +1,10 @@
 import { Transaction } from "knex";
 import connection from "../database/connection";
 
+interface UserWithId extends User {
+  id: string;
+}
+
 interface User {
   name: string;
   last_name: string;
@@ -20,7 +24,7 @@ class UsersRepository {
     return insertedUsersIds[0];
   }
 
-  async show(email: string): Promise<User> {
+  async show(email: string): Promise<UserWithId> {
     const db = connection;
 
     const users = await db("users").select("*").where({ email });

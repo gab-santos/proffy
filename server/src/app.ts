@@ -3,6 +3,8 @@ import cors from "cors";
 import routes from "./routes";
 import { errors } from "celebrate";
 
+import "./config/dotenv";
+
 class AppController {
   public app: express.Application;
 
