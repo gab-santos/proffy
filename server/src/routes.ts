@@ -5,6 +5,7 @@ import UsersValidators from "./validators/Users";
 
 import ClassesController from "./controllers/ClassesController";
 import ConnectionsController from "./controllers/ConnectionsController";
+import UsersController from "./controllers/UsersController";
 
 const routes = Router();
 
@@ -13,10 +14,10 @@ routes.get("/hw", (req, res) =>
 );
 
 routes.post(
-  "/users",
+  "/register",
   upload.single("avatar"),
   UsersValidators.create(),
-  (req, res) => res.status(200).json({ ok: true })
+  UsersController.create
 );
 
 routes.post("/classes", ClassesController.create);

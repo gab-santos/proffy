@@ -60,42 +60,42 @@ class ClassesController {
       schedule,
     } = request.body;
 
-    try {
-      const user = {
-        name,
-        avatar,
-        whatsapp,
-        bio,
-      };
+    // try {
+    //   const user = {
+    //     name,
+    //     avatar,
+    //     whatsapp,
+    //     bio,
+    //   };
 
-      const insertedUserId = await UsersRepository.create(user, trx);
+    //   const insertedUserId = await UsersRepository.create(user, trx);
 
-      const class_user = {
-        subject,
-        cost,
-      };
+    //   const class_user = {
+    //     subject,
+    //     cost,
+    //   };
 
-      const insertedClassId = await ClassesRepository.create(
-        class_user,
-        insertedUserId,
-        trx
-      );
+    //   const insertedClassId = await ClassesRepository.create(
+    //     class_user,
+    //     insertedUserId,
+    //     trx
+    //   );
 
-      await ClassScheduleRepository.create(schedule, insertedClassId, trx);
+    //   await ClassScheduleRepository.create(schedule, insertedClassId, trx);
 
-      await trx.commit();
-      return response
-        .status(201)
-        .json({ id: insertedClassId, ...user, ...class_user, schedule });
-      //
-    } catch (err) {
-      console.error(err);
-      await trx.rollback();
-      return response.status(400).json({
-        message: "Unexpected error while creating new class!",
-        error: err,
-      });
-    }
+    //   await trx.commit();
+    //   return response
+    //     .status(201)
+    //     .json({ id: insertedClassId, ...user, ...class_user, schedule });
+    //   //
+    // } catch (err) {
+    //   console.error(err);
+    //   await trx.rollback();
+    //   return response.status(400).json({
+    //     message: "Unexpected error while creating new class!",
+    //     error: err,
+    //   });
+    // }
   }
 }
 
