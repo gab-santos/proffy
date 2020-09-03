@@ -6,10 +6,11 @@
   "scripts": {
     "commit": "git-cz",
     "start": "NODE_ENV=development tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "test": "NODE_ENV=test jest --runInBand",
+    "test": "NODE_ENV=test jest",
     "knex:migrate": "knex --knexfile src/config/knexfile.ts migrate:latest"
   },
   "dependencies": {
+    "@types/uuid": "^8.3.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^12.2.0",
     "cors": "^2.8.5",
@@ -18,7 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "multer": "^1.4.2",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.0",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
