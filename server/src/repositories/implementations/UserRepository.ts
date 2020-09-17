@@ -10,12 +10,12 @@ export class UserRepository implements IUserRepository {
     this.db = database.connection();
   }
 
-  async findByEmail(email: string): Promise<boolean> {
+  async findByEmail(email: string): Promise<User> {
     const userAlreadyExists = await this.db("users")
       .select("*")
       .where({ email });
 
-    return Boolean(userAlreadyExists[0]);
+    return userAlreadyExists[0];
   }
 
   async save(data: User): Promise<void> {

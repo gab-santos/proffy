@@ -26,16 +26,4 @@
 
 //     expect(isImageTestUploaded).toBeTruthy();
 //   });
-
-// describe("User - Login", () => {
-//   it("should not be able to login without email or password", async () => {
-//     const response = await request(app).post("/authentication").send({
-//       email: "",
-//       password: "",
-//     });
-
-//     expect(response.status).toBe(400);
-//     expect(response.body.validation.keys).toMatchObject(["email", "password"]);
-//   });
-// });
 it("Classes", () => expect(true).toBe(true));

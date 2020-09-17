@@ -1,7 +1,8 @@
 import { celebrate, Joi, Segments } from "celebrate";
+import { RequestHandler } from "express";
 
-class UsersValidators {
-  create() {
+export class UserValidators {
+  register(): RequestHandler {
     return celebrate(
       {
         [Segments.BODY]: Joi.object().keys({
@@ -20,13 +21,14 @@ class UsersValidators {
     );
   }
 
-  show() {
+  authenticate(): RequestHandler {
     return celebrate(
       {
-        [Segments.BODY]: Joi.object().keys({
-          email: Joi.string().email().required(),
-          password: Joi.string().required(),
-        }),
+        [Segments.HEADERS]: Joi.object()
+          .keys({
+            authorization: Joi.string().required(),
+          })
+          .unknown(),
       },
       {
         abortEarly: false,
@@ -34,4 +36,3 @@ class UsersValidators {
     );
   }
 }
-export default new UsersValidators();

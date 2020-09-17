@@ -1,12 +1,13 @@
 import { Router } from "express";
 
 import upload from "./config/multer";
-import UsersValidators from "./validators/Users";
+import { userValidators } from "./validators";
 
 // import ClassesController from "./controllers/ClassesController";
 // import ConnectionsController from "./controllers/ConnectionsController";
 // import UsersController from "./controllers/UsersController";
 import { createUserController } from "./useCases/CreateUser";
+import { authenticateUserController } from "./useCases/AuthenticateUser";
 
 const routes = Router();
 
@@ -17,10 +18,14 @@ routes.get("/hw", (req, res) =>
 routes.post(
   "/register",
   upload.single("avatar"),
-  UsersValidators.create(),
+  userValidators.register(),
   (request, response) => createUserController.handle(request, response)
 );
-// routes.post("/authentication", UsersValidators.show(), UsersController.show);
+routes.get(
+  "/authenticate",
+  userValidators.authenticate(),
+  (request, response) => authenticateUserController.handle(request, response)
+);
 
 // routes.post("/classes", ClassesController.create);
 // routes.get("/classes", ClassesController.index);
